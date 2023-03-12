@@ -6,7 +6,7 @@ import java.util.*
 class MyUtils private constructor() {
 
     companion object {
-        fun convertDateStringToFormattedString(date: Date, format: String, locale: Locale = Locale.getDefault()): String {
+        fun DateStringConversion(date: Date, format: String, locale: Locale = Locale.getDefault()): String {
             val formatter = SimpleDateFormat(format, locale)
             return formatter.format(date)
         }

@@ -17,20 +17,9 @@ class AsteriodRaderApp : Application() {
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
-        setupRecurringWork()
+        canSetWork()
     }
 
-    private fun setupRecurringWork() {
-        applicationScope.launch {
-            val constraints = buildConstraints()
-            val repeatingRequest = buildRepeatingRequest(constraints)
-            WorkManager.getInstance().enqueueUniquePeriodicWork(
-                RefreshDataWorker.WORK_NAME,
-                ExistingPeriodicWorkPolicy.KEEP,
-                repeatingRequest
-            )
-        }
-    }
 
     private fun buildConstraints(): Constraints {
         return Constraints.Builder()
@@ -48,6 +37,18 @@ class AsteriodRaderApp : Application() {
         return PeriodicWorkRequestBuilder<RefreshDataWorker>(1, TimeUnit.DAYS)
             .setConstraints(constraints)
             .build()
+    }
+
+    private fun canSetWork() {
+        applicationScope.launch {
+            val constraints = buildConstraints()
+            val repeatingRequest = buildRepeatingRequest(constraints)
+            WorkManager.getInstance().enqueueUniquePeriodicWork(
+                RefreshDataWorker.WORK_NAME,
+                ExistingPeriodicWorkPolicy.KEEP,
+                repeatingRequest
+            )
+        }
     }
 
     companion object {

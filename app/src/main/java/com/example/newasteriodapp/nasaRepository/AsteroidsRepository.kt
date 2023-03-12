@@ -1,25 +1,24 @@
 package com.example.newasteriodapp.nasaRepository;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Transformations;
 
-import com.example.newasteriodapp.domain.Asteroid;
-import com.example.newasteriodapp.Constants;
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
+import com.example.newasteriodapp.Constants
 import com.example.newasteriodapp.MyUtils
-import com.example.newasteriodapp.nasaApi.SevenDayAsteroidParser
 import com.example.newasteriodapp.database.DatabaseAsteroid.Companion.asDomainModel
-import com.example.newasteriodapp.database.NasaDatabase;
-//import com.example.newasteriodapp.database.asDomainModel
-import com.example.newasteriodapp.network.Network;
+import com.example.newasteriodapp.database.MyDatabase
+import com.example.newasteriodapp.domain.Asteroid
+import com.example.newasteriodapp.nasaApi.SevenDayAsteroidParser
+import com.example.newasteriodapp.network.Network
 import com.example.newasteriodapp.network.asDatabaseModel
-
-import kotlinx.coroutines.Dispatchers;
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
-import timber.log.Timber;
+import timber.log.Timber
 import java.util.*
 
-class AsteroidsRepository(private val database: NasaDatabase) {
+class AsteroidsRepository(private val database: MyDatabase) {
     private val today: String
     private val week: String
 
@@ -36,8 +35,8 @@ class AsteroidsRepository(private val database: NasaDatabase) {
     }
 
     init {
-        today = MyUtils.convertDateStringToFormattedString(Calendar.getInstance().time, Constants.API_QUERY_DATE_FORMAT)
-        week = MyUtils.convertDateStringToFormattedString(
+        today = MyUtils.DateStringConversion(Calendar.getInstance().time, Constants.API_QUERY_DATE_FORMAT)
+        week = MyUtils.DateStringConversion(
             MyUtils.addDaysToDate(Calendar.getInstance().time, 7),
             Constants.API_QUERY_DATE_FORMAT
         )

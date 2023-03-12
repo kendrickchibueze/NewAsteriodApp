@@ -58,7 +58,7 @@ class MainFragment : Fragment() {
         val activity = requireNotNull(this.activity) {
 
         }
-        return ViewModelProvider(this, MainViewModel.Factory(activity.application))
+        return ViewModelProvider(this, MainViewModelFactory(activity.application))
             .get(MainViewModel::class.java)
     }
 
@@ -75,13 +75,13 @@ class MainFragment : Fragment() {
                     add(Calendar.DAY_OF_YEAR, 7)
                 }
                 viewModel.updateDateRange(today.time, nextWeek.time)
-                viewModel.updateFilter(AsteroidApiFilter.SHOW_WEEK)
+                viewModel.updateFilter(AsteroidApiFilter.WEEK)
             }
             R.id.show_today_menu -> {
-                viewModel.updateFilter(AsteroidApiFilter.SHOW_TODAY)
+                viewModel.updateFilter(AsteroidApiFilter.TODAY)
             }
             else -> {
-                viewModel.updateFilter(AsteroidApiFilter.SHOW_SAVED)
+                viewModel.updateFilter(AsteroidApiFilter.SAVED)
             }
         }
         return true
