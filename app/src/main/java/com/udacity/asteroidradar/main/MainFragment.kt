@@ -72,6 +72,7 @@ class MainFragment : Fragment() {
         when (item.itemId) {
             R.id.show_week_menu -> {
                 // Get today's date
+                Timber.i("Week menu item selected")
                 val today = Calendar.getInstance()
                 // Get date one week from now
                 val nextWeek = Calendar.getInstance().apply {
@@ -84,9 +85,11 @@ class MainFragment : Fragment() {
             }
             R.id.show_today_menu -> {
                 // Update the filter to show only today's asteroids
+                Timber.i("Today menu item selected")
                 viewModel.updateFilter(ApiFilter.SHOW_TODAY)
             }
             else -> {
+                Timber.i("Saved menu item selected")
                 // Update the filter to show saved asteroids
                 viewModel.updateFilter(ApiFilter.SHOW_SAVED)
             }

@@ -25,9 +25,13 @@ class PicturesOfDayRepository(private val database: MyDatabase) {
     }
 
     suspend fun refreshPictureOfDay() {
+        Timber.i("refreshPictureOfDay() called")
         val pictureOfDay = withContext(Dispatchers.IO) {
+
             try {
+
                 Network.radarApi.getPictureOfDay(Constants.API_KEY)
+
             } catch (e: Exception) {
                 Timber.e(e)
                 null
@@ -36,5 +40,6 @@ class PicturesOfDayRepository(private val database: MyDatabase) {
         pictureOfDay?.let {
             database.pictureOfDayDao.insertPictureOfDay(it.asDatabaseModel())
         }
+        Timber.i("refreshPictureOfDay() finished")
     }
 }
